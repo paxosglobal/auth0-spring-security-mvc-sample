@@ -5,6 +5,7 @@ import com.auth0.IdentityVerificationException;
 import com.auth0.Tokens;
 import com.auth0.example.security.TokenAuthentication;
 import com.auth0.jwt.JWT;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
@@ -28,7 +29,7 @@ public class CallbackController {
     private final String redirectOnSuccess;
 
     public CallbackController() {
-        this.redirectOnFail = "/login";
+        this.redirectOnFail = "/error";
         this.redirectOnSuccess = "/portal/home";
     }
 
@@ -45,8 +46,9 @@ public class CallbackController {
     private void handle(HttpServletRequest req, HttpServletResponse res) throws IOException {
         try {
             Tokens tokens = controller.handle(req);
-            TokenAuthentication tokenAuth = new TokenAuthentication(JWT.decode(tokens.getIdToken()));
+            TokenAuthentication tokenAuth = new TokenAuthentication(JWT.decode(tokens.getAccessToken()));
             SecurityContextHolder.getContext().setAuthentication(tokenAuth);
+            req.getSession().setAttribute("tokens", tokens);
             res.sendRedirect(redirectOnSuccess);
         } catch (AuthenticationException | IdentityVerificationException e) {
             e.printStackTrace();

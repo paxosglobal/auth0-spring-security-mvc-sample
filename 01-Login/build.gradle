@@ -26,6 +26,7 @@ dependencies {
     compile 'com.auth0:mvc-auth-commons:1.+'
     compile 'org.springframework.boot:spring-boot-starter-web:1.5.6.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-security:1.5.6.RELEASE'
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
 
     runtime 'org.springframework.boot:spring-boot-starter-tomcat:1.5.6.RELEASE'
     runtime 'org.springframework.security:spring-security-taglibs:4.2.3.RELEASE'

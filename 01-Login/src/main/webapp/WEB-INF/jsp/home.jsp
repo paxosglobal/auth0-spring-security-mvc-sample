@@ -29,24 +29,26 @@
     </div>
     <div class="jumbotron">
         <h3>Hello ${userId}!</h3>
+        <h4>Ethereum Address ${address}</h4>
+        <h4>Withdrawal Accounts ${wa}</h4>
+        <h4>Transactions ${txs}</h4>
     </div>
     <div class="row marketing">
         <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+            <h4>Ethereum Address</h4>
+            <p>${address}</p>
 
-            <h4>Subheading</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
-                fermentum.</p>
+            <h4>Transactions</h4>
+            <p>${txs}</p>
         </div>
 
         <div class="col-lg-6">
-            <h4>Subheading</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+            <h4>Withdrawal Accounts</h4>
+            <p>${wa}</p>
 
-            <h4>Subheading</h4>
+            <!-- <h4>Subheading</h4>
             <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet
-                fermentum.</p>
+                fermentum.</p> -->
         </div>
     </div>
 

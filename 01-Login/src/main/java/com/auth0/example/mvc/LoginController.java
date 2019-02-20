@@ -26,7 +26,10 @@ public class LoginController {
         logger.debug("Performing login");
         String redirectUri = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + "/callback";
         String authorizeUrl = controller.buildAuthorizeUrl(req, redirectUri)
-                .withAudience(String.format("https://%s/userinfo", appConfig.getDomain()))
+                .withAudience("http://localhost:3000/api/v1/customer/")
+                //.withAudience("itbit.auth0.com/userinfo")
+                .withParameter("prompt", "consent")
+                .withScope("openid profile email read:eth_address read:withdrawal_accounts read:transactions")
                 .build();
         return "redirect:" + authorizeUrl;
     }
