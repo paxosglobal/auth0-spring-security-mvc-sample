@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,9 @@ public class HomeController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Value("${api.server}")
+    private String server;
+
     @RequestMapping(value = "/portal/home", method = RequestMethod.GET)
     protected String home(final Map<String, Object> model, final Principal principal, final HttpSession session) {
         logger.info("Home page");
@@ -35,7 +39,7 @@ public class HomeController {
 	    logger.info("Principal is " + principal.getName());
         logger.info("Token is " + tokens.getAccessToken());
         try {
-            HttpResponse<JsonNode> response = Unirest.get("http://localhost:4455/api/v1/customer/eth_address")
+            HttpResponse<JsonNode> response = Unirest.get(server + "/api/v1/customer/eth_address")
                     .header("content-type", "application/json")
                     .header("authorization", "Bearer " + tokens.getAccessToken())
                     .asJson();
@@ -53,7 +57,7 @@ public class HomeController {
             } else {
                 model.put("address", response.getBody().toString());
             }
-            response = Unirest.get("http://localhost:4455/api/v1/customer/withdrawal_account")
+            response = Unirest.get(server + "/api/v1/customer/withdrawal_account")
                     .header("content-type", "application/json")
                     .header("authorization", "Bearer " + tokens.getAccessToken())
                     .asJson();
@@ -69,7 +73,7 @@ public class HomeController {
             } else {
                 model.put("wa", response.getBody().toString());
             }
-            HttpResponse<String> error = Unirest.get("http://localhost:4455/api/v1/customer/transactions")
+            HttpResponse<String> error = Unirest.get(server + "/api/v1/customer/transactions")
                     .header("content-type", "application/json")
                     .header("authorization", "Bearer " + tokens.getAccessToken())
                     .asString();
